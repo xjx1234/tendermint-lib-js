@@ -1,0 +1,33 @@
+{
+  "name": "tendermint-lib",
+  "version": "0.0.1",
+  "description": "Tendermint client libraries for Javascript",
+  "main": "index.js",
+  "scripts": {
+    "fmt": "jsfmt -w src/",
+    "test-browser": "browserify test/browser-test.js | testling -x open"
+  },
+  "devDependencies": {
+    "browserify": "^6.3.0",
+    "tape": "^4.0.0",
+    "testling": "^1.7.1"
+  },
+  "//": [
+    "Dependencies:",
+    "1. Crypto"
+  ],
+  "dependencies": {
+    "create-hash": "^1.1.0",
+    "js-nacl": "^0.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tendermint/tendermint-lib-js.git"
+  },
+  "author": "jae@tendermint.com",
+  "license": "Kopimist",
+  "bugs": {
+    "url": "https://github.com/tendermint/tendermint-lib-js/issues"
+  },
+  "homepage": "https://github.com/tendermint/tendermint-lib-js"
+}
