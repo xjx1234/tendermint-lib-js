@@ -12,13 +12,13 @@ function PubKeyEd25519(bytes) {
 }
 
 PubKeyEd25519.prototype.verifyString = function(msgStr, sig) {
-	var msgBytes = nacl.encode_utf8(msgStr);
-	var verify = nacl.crypto_sign_verify_detached(sig.bytes, msgBytes, this.bytes);
-	return verify;
+  var msgBytes = nacl.encode_utf8(msgStr);
+  var verify = nacl.crypto_sign_verify_detached(sig.bytes, msgBytes, this.bytes);
+  return verify;
 }
 
 PubKeyEd25519.prototype.makeAddress = function() {
-	return hash.ripemd160(this.bytes);
+  return hash.ripemd160(this.bytes);
 }
 
 PubKeyEd25519.prototype.toJSON = function() {
@@ -49,9 +49,9 @@ PrivKeyEd25519.prototype.signString = function(msgStr) {
 
 PrivKeyEd25519.prototype.makePubKey = function() {
   if (this.bytes.length != 64) {
-	  throw "Cannot makePubKey: Invalid PrivKeyEd25519 bytes"
+    throw "Cannot makePubKey: Invalid PrivKeyEd25519 bytes"
   }
-  return new PubKeyEd25519(this.bytes.subarray(32,64));
+  return new PubKeyEd25519(this.bytes.subarray(32, 64));
 }
 
 PrivKeyEd25519.prototype.toJSON = function() {

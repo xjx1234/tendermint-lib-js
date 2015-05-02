@@ -1,15 +1,15 @@
-var TxTypeSend = 0x01;
-var TxTypeCall = 0x02;
-var TxTypeBond = 0x11;
-var TxTypeUnbond = 0x12;
-var TxTypeRebond = 0x13;
-var TxTypeDupeout = 0x14;
+var txTypeSend = 0x01;
+var txTypeCall = 0x02;
+var txTypeBond = 0x11;
+var txTypeUnbond = 0x12;
+var txTypeRebond = 0x13;
+var txTypeDupeout = 0x14;
 
 module.exports = {
-	TxTypeSend: TxTypeSend,
-	TxTypeCall: TxTypeCall,
-	TxTypeBond: TxTypeBond,
-	TxTypeUnbond: TxTypeUnbond,
-	TxTypeRebond: TxTypeRebond,
-	TxTypeDupeout: TxTypeDupeout,
+  txTypeSend: txTypeSend,
+  txTypeCall: txTypeCall,
+  txTypeBond: txTypeBond,
+  txTypeUnbond: txTypeUnbond,
+  txTypeRebond: txTypeRebond,
+  txTypeDupeout: txTypeDupeout,
 }
