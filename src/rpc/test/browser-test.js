@@ -1,7 +1,9 @@
 var test = require('tape')
 
 
+
 var rpc = require('../index.js')
+
 
 
 var settings = {
@@ -19,6 +21,7 @@ var settings = {
     path: '/'
   }]
 }
+
 
 
 
@@ -50,8 +53,10 @@ window.XMLHttpRequest.prototype.open = function(method, url) {
 var count = 0
 
 
+
 window.XMLHttpRequest.prototype.send = function() {
   var self = this
+
 
 
   setTimeout(function() {

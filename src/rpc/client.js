@@ -40,8 +40,6 @@ function clientNode(remote, request, callback) {
     })
   })
 
-
-
   req.write(rpcRequest);
   req.end();
 }
@@ -79,32 +77,11 @@ function formatRequest(request) {
   })
 }
 
-function failover(settings, request, count, callback) {
-  if (count === settings.remotes.length) {
-    // if all remotes are bad, callback with error
-    callback(new Error('Network error.'));
-  } else {
-    // if remote is bad, increment and try again
-    settings.client(settings.remotes[count], request, function(err, response) {
-      if (err) {
-        return failover(settings, request, (count + 1), callback);
-      }
-      callback(null, response);
-    })
-  }
-}
-
-module.exports = function(settings, request, callback) {
+module.exports = function(remote, request, callback) {
   // Check if we are in the browser
   if (typeof window === 'undefined') {
-    failover({
-      remotes: settings.remotes,
-      client: clientNode,
-    }, request, 0, callback);
+    clientNode(remote, request, callback);
   } else {
-    failover({
-      remotes: settings.remotes,
-      client: clientBrowser,
-    }, request, 0, callback);
+    clientBrowser(remote, request, callback);
   }
 }

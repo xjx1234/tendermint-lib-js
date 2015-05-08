@@ -1,7 +1,7 @@
-var rpc = require("tendermint-lib/rpc");
+var client = require("./client");
 
 function getAccount(settings, address, callback) {
-  rpc(settings, {
+  client(settings, {
     method: 'get_account',
     params: [address]
   }, function(err, res) {
