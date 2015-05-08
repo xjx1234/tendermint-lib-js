@@ -10,9 +10,15 @@ var buffer = require("buffer");
 */
 
 var Reader = function(buf) {
-  this.buf = buf;
+  if (buffer.Buffer.isBuffer(buf)) {
+    this.buf = buf;
+  } else {
+    this.buf = new buffer.Buffer(buf);
+  }
   this.offset = 0;
 }
+
+
 
 Reader.prototype.readInt8 = function() {
   var v = this.buf.readInt8(this.offset);
@@ -25,6 +31,8 @@ Reader.prototype.readUint8 = function() {
   this.offset += 1;
   return v;
 }
+
+Reader.prototype.readByte = Reader.prototype.readUint8;
 
 Reader.prototype.readInt16 = function() {
   var v = this.buf.readInt16BE(this.offset);
@@ -70,11 +78,10 @@ Reader.prototype.readVarint = function() {
 Reader.prototype.readUvarint = function() {
   var vLen = this.readUint8();
   var v = 0;
-  for (var i=0; i<vLen; i++) {
+  for (var i = 0; i < vLen; i++) {
     var next = this.readUint8();
-    v = v*256 + next;
+    v = v * 256 + next;
   }
-  this.offset += vLen+1;
   verifuint(v, 0x001FFFFFFFFFFFFF);
   return v;
 }

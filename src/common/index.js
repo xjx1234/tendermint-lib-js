@@ -1,6 +1,6 @@
 function compare(arrA, arrB) {
   var min = Math.min(arrA.length, arrB.length);
-  for (var i=0; i<min; i++) {
+  for (var i = 0; i < min; i++) {
     if (arrA[i] < arrB[i]) {
       return -1;
     }

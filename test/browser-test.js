@@ -42,23 +42,17 @@ window.XMLHttpRequest.prototype.open = function (method, url) {
   console.log('xhr open', url);
 };
 
-var count = 0;
 window.XMLHttpRequest.prototype.send = function () {
   var self = this;
   setTimeout(function () {
-    count = count + 1;
-    if (count < 2) { // first two requests are bad
-      window.XMLHttpRequest.prototype.status = 420;
-    } else {
-      window.XMLHttpRequest.prototype.status = 200;
-    }
+    window.XMLHttpRequest.prototype.status = 200;
     self.onreadystatechange();
     console.log('xhr send');
   }, 100)
 }
 
 test('basic', function (t) {
-  rpc(settings, {
+  rpc.client(settings.remotes[0], {
     method: 'test',
     params: ['foo']
   }, function (err, result) {

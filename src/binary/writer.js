@@ -16,6 +16,9 @@ var Writer = function(buf) {
   this.offset = 0;
 }
 
+
+
+
 Writer.prototype.getBuffer = function() {
   return this.buf.slice(0, this.offset);
 }
@@ -38,6 +41,8 @@ Writer.prototype.writeUint8 = function(v) {
   this.buf.writeUInt8(v, this.offset);
   this.offset += 1;
 }
+
+Writer.prototype.writeByte = Writer.prototype.writeUint8;
 
 Writer.prototype.writeInt16 = function(v) {
   this.ensureBuf(2);
@@ -71,20 +76,20 @@ Writer.prototype.writeUint64 = function(v) {
   this.ensureBuf(8);
   verifuint(v, 0x001FFFFFFFFFFFFf);
   this.buf.writeUInt32BE(Math.floor(v / 0x100000000), this.offset);
-  this.buf.writeInt32BE(v & -1, this.offset+4); // Nice trick.
+  this.buf.writeInt32BE(v & -1, this.offset + 4); // Nice trick.
   this.offset += 8;
 }
 
-function uvarIntSize (i) {
+function uvarIntSize(i) {
   verifuint(i, 0x001FFFFFFFFFFFFf);
   return i < 0x100 ? 1
-  : i < 0x0000000000010000 ? 2
-  : i < 0x0000000001000000 ? 3
-  : i < 0x0000000100000000 ? 4
-  : i < 0x0000010000000000 ? 5
-  : i < 0x0001000000000000 ? 6
-  : i < 0x0100000000000000 ? 7
-  : 8;
+    : i < 0x0000000000010000 ? 2
+      : i < 0x0000000001000000 ? 3
+        : i < 0x0000000100000000 ? 4
+          : i < 0x0000010000000000 ? 5
+            : i < 0x0001000000000000 ? 6
+              : i < 0x0100000000000000 ? 7
+                : 8;
 }
 
 Writer.prototype.writeVarint = function(v) {
@@ -95,17 +100,17 @@ Writer.prototype.writeUvarint = function(v) {
   var vLen = uvarIntSize(v);
   this.writeUint8(vLen);
   var bytes = [];
-  for (var i=0; i<vLen; i++) {
+  for (var i = 0; i < vLen; i++) {
     var remainder = v % 256;
     bytes.push(remainder);
     v = (v - remainder) / 256;
   }
-  for (var i=0; i<vLen; i++) {
-    this.writeUint8(bytes[vLen-i-1]);
+  for (var i = 0; i < vLen; i++) {
+    this.writeUint8(bytes[vLen - i - 1]);
   }
 }
 
-function utf8ToBytes (str) {
+function utf8ToBytes(str) {
   var bytes = [];
   for (var i = 0; i < str.length; i++) {
     var b = str.charCodeAt(i);
@@ -116,7 +121,7 @@ function utf8ToBytes (str) {
       if (b >= 0xD800 && b <= 0xDFFF) {
         i++;
       }
-      var h = encodeURIComponent(str.slice(start, i+1)).substr(1).split('%');
+      var h = encodeURIComponent(str.slice(start, i + 1)).substr(1).split('%');
       for (var j = 0; j < h.length; j++) {
         bytes.push(parseInt(h[j], 16));
       }

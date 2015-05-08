@@ -38,8 +38,7 @@ function clientNode(remote, request, callback) {
       }
       return callback(null, resJSON.result);
     })
-  })
-
+  });
   req.write(rpcRequest);
   req.end();
 }
@@ -62,7 +61,7 @@ function clientBrowser(remote, request, callback) {
       }
       return callback(null, resJSON.result);
     }
-  }
+  };
 
   xhr.open('POST', 'http://' + remote.host + ':' + remote.port + remote.path, true);
   xhr.send(rpcRequest);
