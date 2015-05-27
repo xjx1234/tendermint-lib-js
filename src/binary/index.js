@@ -26,6 +26,6 @@ function compare(arrA, arrB) {
 module.exports = {
   compare: compare,
 };
-xport(module.exports, require("./reader"));
-xport(module.exports, require("./writer"));
-require("./bytearray"); // extends Reader/Writer
+xport(module.exports, require('./reader'));
+xport(module.exports, require('./writer'));
+require('./bytearray'); // extends Reader/Writer

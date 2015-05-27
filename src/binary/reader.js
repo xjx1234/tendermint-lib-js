@@ -1,9 +1,9 @@
-var assert = require("assert");
-var buffer = require("buffer");
+var assert = require('assert');
+var buffer = require('buffer');
 
 /*
   Usage:
-  var buf = new buffer.Buffer(<some_hex_string>, "hex");
+  var buf = new buffer.Buffer(<some_hex_string>, 'hex');
   var r = new Reader(buf);
   console.log(r.readUvarint());
   ...
@@ -17,8 +17,6 @@ var Reader = function(buf) {
   }
   this.offset = 0;
 }
-
-
 
 Reader.prototype.readInt8 = function() {
   var v = this.buf.readInt8(this.offset);
@@ -59,7 +57,7 @@ Reader.prototype.readUint32 = function() {
 }
 
 Reader.prototype.readInt64 = function() {
-  throw "not yet implemented"
+  throw 'not yet implemented'
 }
 
 Reader.prototype.readUint64 = function() {
@@ -72,7 +70,7 @@ Reader.prototype.readUint64 = function() {
 }
 
 Reader.prototype.readVarint = function() {
-  throw "not yet implemented"
+  throw 'not yet implemented'
 }
 
 Reader.prototype.readUvarint = function() {
@@ -88,7 +86,7 @@ Reader.prototype.readUvarint = function() {
 
 Reader.prototype.readString = function() {
   var length = this.readUvarint();
-  var v = this.buf.toString("utf8", this.offset, this.offset + length);
+  var v = this.buf.toString('utf8', this.offset, this.offset + length);
   this.offset += length;
   return v;
 }

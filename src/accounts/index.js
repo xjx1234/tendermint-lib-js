@@ -1,7 +1,7 @@
-var crypto = require("../crypto");
+var crypto = require('../crypto');
 
 function genAccount() {
-  console.log("genAccount() not yet implemented");
+  console.log('genAccount() not yet implemented');
 }
 
 module.exports = {

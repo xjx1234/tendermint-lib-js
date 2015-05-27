@@ -1,8 +1,8 @@
 module.exports = {
-  client: require("./client"),
+  client: require('./client'),
 }
 
-// For convenience, just export all the rpc into a flat namespace in "rpc".
+// For convenience, just export all the rpc into a flat namespace in 'rpc'.
 
 function xport(exports, m) {
   for (var key in m) {
@@ -10,4 +10,4 @@ function xport(exports, m) {
   }
 }
 
-xport(module.exports, require("./account"));
+xport(module.exports, require('./account'));

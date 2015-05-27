@@ -1,5 +1,5 @@
-var assert = require("assert");
-var buffer = require("buffer");
+var assert = require('assert');
+var buffer = require('buffer');
 
 /*
   Usage:
@@ -9,15 +9,12 @@ var buffer = require("buffer");
 */
 
 var Writer = function(buf) {
-  if (typeof buf == "undefined") {
+  if (typeof buf == 'undefined') {
     buf = new buffer.Buffer(1024);
   }
   this.buf = buf;
   this.offset = 0;
 }
-
-
-
 
 Writer.prototype.getBuffer = function() {
   return this.buf.slice(0, this.offset);
@@ -69,7 +66,7 @@ Writer.prototype.writeUint32 = function(v) {
 }
 
 Writer.prototype.writeInt64 = function(v) {
-  throw "not yet implemented";
+  throw 'not yet implemented';
 }
 
 Writer.prototype.writeUint64 = function(v) {
@@ -93,7 +90,7 @@ function uvarIntSize(i) {
 }
 
 Writer.prototype.writeVarint = function(v) {
-  throw "not yet implemented";
+  throw 'not yet implemented';
 }
 
 Writer.prototype.writeUvarint = function(v) {
@@ -135,7 +132,7 @@ Writer.prototype.writeString = function(v) {
   // this.offset was adjusted by writeUvarint above.
   var utf8Bytes = utf8ToBytes(v);
   this.ensureBuf(utf8Bytes.length);
-  this.buf.write(utf8Bytes, this.offset, utf8Bytes.length, "binary");
+  this.buf.write(utf8Bytes, this.offset, utf8Bytes.length, 'binary');
   this.offset += utf8Bytes.length;
 }
 

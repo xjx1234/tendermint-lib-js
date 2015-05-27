@@ -1,6 +1,6 @@
-var buffer = require("buffer");
-var Reader = require("./reader").Reader;
-var Writer = require("./writer").Writer;
+var buffer = require('buffer');
+var Reader = require('./reader').Reader;
+var Writer = require('./writer').Writer;
 
 Reader.prototype.readByteArray = function() {
   var length = this.readUvarint();

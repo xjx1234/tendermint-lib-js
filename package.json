@@ -4,7 +4,7 @@
   "description": "Tendermint client libraries for Javascript",
   "main": "src/index.js",
   "scripts": {
-    "fmt": "jsfmt -w src/",
+    "jscs": "jscs src/ --fix",
     "test-browser": "browserify test/browser-test.js | testling -x open"
   },
   "devDependencies": {
@@ -17,7 +17,8 @@
     "1. Crypto"
   ],
   "dependencies": {
-    "create-hash": "^1.1.0",
+    "ripemd160": "^1.0.1",
+    "sha.js": "^2.4.1",
     "js-nacl": "^0.6.0"
   },
   "repository": {

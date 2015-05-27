@@ -1,14 +1,14 @@
-var nacl = require("js-nacl").instantiate();
-var hash = require("./hash");
-var hex = require("../common/hex");
-var types = require("../types/account");
+var nacl = require('js-nacl').appNacl;
+var hash = require('./hash');
+var hex = require('../common/hex');
+var types = require('../types/account');
 
 //--------------------------------------------------------------------------------
 
-// pubKey: [pubKeyTypeEd25519, "pubKeyBytesInHex"]
+// pubKey: [pubKeyTypeEd25519, 'pubKeyBytesInHex']
 function verifyStringEd25519(pubKey, msgStr, sig) {
   if (pubKey[0] !== types.pubKeyTypeEd25519) {
-    throw "Unexpected pubKey type " + pubKey[0];
+    throw 'Unexpected pubKey type ' + pubKey[0];
   }
   var msgBytes = nacl.encode_utf8(msgStr);
   var pubKeyBytes = hex.decode(pubKey[1]);
@@ -23,9 +23,10 @@ function makeAddressEd25519(pubKey) {
   buf.writeUint8(types.pubKeyTypeEd25519);
   buf.writeUvarint(pubKeyBytes.length);
   buf.writeBytes(pubKeyBytes);
+  return hash.ripemd160(buf.buf);
   // XXX continue developing below
   // return hash.ripemd160(this.bytes);
-  return "makeAddressEd25519 not implemented";
+  return 'makeAddressEd25519 not implemented';
 }
 
 /*
@@ -49,7 +50,7 @@ PrivKeyEd25519.prototype.signString = function(msgStr) {
 /*
 PrivKeyEd25519.prototype.makePubKey = function() {
   if (this.bytes.length != 64) {
-    throw "Cannot makePubKey: Invalid PrivKeyEd25519 bytes"
+    throw 'Cannot makePubKey: Invalid PrivKeyEd25519 bytes'
   }
   return new PubKeyEd25519(this.bytes.subarray(32, 64));
 }

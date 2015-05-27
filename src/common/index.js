@@ -24,5 +24,6 @@ function randInt(max) {
 module.exports = {
   compare: compare,
   randInt: randInt,
-  hex: require("./hex"),
+  hex: require('./hex'),
+  string: require('./string'),
 };

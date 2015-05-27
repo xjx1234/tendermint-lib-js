@@ -1,11 +1,14 @@
-var createHash = require("create-hash");
+var rmd160 = require('ripemd160');
+var nacl = require('js-nacl').appNacl;
 
-function ripemd160(buffer) {
-  return createHash('rmd160').update(buffer).digest();
+// All inputs & outputs are Uint8Arrays.
+
+function ripemd160(bytes) {
+  return new Uint8Array(rmd160(bytes));
 }
 
-function sha256(buffer) {
-  return createHash('sha256').update(buffer).digest();
+function sha256(bytes) {
+  return nacl.crypto_hash_sha256(bytes);
 }
 
 module.exports = {

@@ -1,4 +1,4 @@
-var client = require("./client");
+var client = require('./client');
 
 function getAccount(settings, address, callback) {
   client(settings, {

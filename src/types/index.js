@@ -4,5 +4,5 @@ function xport(exports, m) {
   }
 }
 
-xport(module.exports, require("./account"));
-xport(module.exports, require("./tx"));
+xport(module.exports, require('./account'));
+xport(module.exports, require('./tx'));
