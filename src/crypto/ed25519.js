@@ -5,8 +5,8 @@ var types = require('../types/account');
 
 //--------------------------------------------------------------------------------
 
-// pubKey: [pubKeyTypeEd25519, 'pubKeyBytesInHex']
-function verifyStringEd25519(pubKey, msgStr, sig) {
+// pubKey: [pubKeyTypeEd25519, 'pubKeyBytesHex']
+function verifyString(pubKey, msgStr, sig) {
   if (pubKey[0] !== types.pubKeyTypeEd25519) {
     throw 'Unexpected pubKey type ' + pubKey[0];
   }
@@ -16,43 +16,31 @@ function verifyStringEd25519(pubKey, msgStr, sig) {
   return verify;
 }
 
-function makeAddressEd25519(pubKey) {
-  var arr = Uint8Array();
-  var pubKeyBytes = hex.decode(pubKey[1]);
-  var buf = new binary.Writer();
-  buf.writeUint8(types.pubKeyTypeEd25519);
-  buf.writeUvarint(pubKeyBytes.length);
-  buf.writeBytes(pubKeyBytes);
-  return hash.ripemd160(buf.buf);
-  // XXX continue developing below
-  // return hash.ripemd160(this.bytes);
-  return 'makeAddressEd25519 not implemented';
+// privKey: [privKeyTypeEd25519, 'privKeyBytesHex']
+// returns [signatureTypeEd25519, 'sigBytesHex']
+function signString(privKey, msgStr) {
+  if (privKey[0] !== types.privKeyTypeEd25519) {
+    throw 'Unexpected privKey type ' + privKey[0];
+  }
+  var signBytes = nacl.encode_utf8(msgStr);
+  var privKeyBytes = hex.decode(privKey[1]);
+  var sigBytes = nacl.crypto_sign_detached(signBytes, privKeyBytes);
+  var sig = new SignatureEd25519(sigBytes);
+  return [types.signatureTypeEd25519, hex.encode(sig)];
 }
 
-/*
-function genPrivKeyEd25519() {
+// returns [[pubKeyTypeEd25519, 'pubKeyBytesHex'],
+//          [privKeyTypeEd25519, 'privKeyBytesHex']]
+function genKeyPair() {
   var keypair = nacl.crypto_sign_keypair();
   var privKeyBytes = keypair.signSk;
-  //var pubKeyBytes = keypair.signPk;
-  return new PrivKeyEd25519(privKeyBytes);
+  var pubKeyBytes = keypair.signPk;
+  return [[types.pubKeyTypeEd25519, pubKeyBytes],
+          [types.privKeyTypeEd25519, privKeyBytes]];
 }
-*/
 
-/*
-PrivKeyEd25519.prototype.signString = function(msgStr) {
-  var signBytes = nacl.encode_utf8(msgStr);
-  var sigBytes = nacl.crypto_sign_detached(signBytes, this.bytes);
-  var sig = new SignatureEd25519(sigBytes);
-  return sig
-}
-*/
-
-/*
-PrivKeyEd25519.prototype.makePubKey = function() {
-  if (this.bytes.length != 64) {
-    throw 'Cannot makePubKey: Invalid PrivKeyEd25519 bytes'
-  }
-  return new PubKeyEd25519(this.bytes.subarray(32, 64));
-}
-*/
-
+module.exports = {
+  verifyString: verifyString,
+  signString: signString,
+  genKeyPair: genKeyPair,
+};
