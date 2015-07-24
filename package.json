@@ -19,7 +19,8 @@
   "dependencies": {
     "ripemd160": "^1.0.1",
     "sha.js": "^2.4.1",
-    "js-nacl": "^0.6.0"
+    "js-nacl": "^0.6.0",
+    "ws": "^0.7.2"
   },
   "repository": {
     "type": "git",
